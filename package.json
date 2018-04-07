@@ -1,0 +1,78 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "scripts": {
+    "dev": "exp start .",
+    "open:ios": "exp ios .",
+    "open:android": "exp android .",
+    "debugger":
+      "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'",
+    "test": "jest",
+    "lint": "eslint src",
+    "format": "eslint ./src/**/*.js --fix",
+    "precommit": "lint-staged",
+    "clean":
+      "rm -rf yarn.lock node_modules && yarn && watchman watch-del-all && rm -rf $TMPDIR/react-*"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.1.12",
+    "apollo-client": "^2.2.8",
+    "apollo-link": "^1.2.1",
+    "apollo-link-http": "^1.5.3",
+    "apollo-link-ws": "^1.0.7",
+    "apollo-utilities": "^1.0.11",
+    "expo": "^26.0.0",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.8.0",
+    "prop-types": "^15.6.1",
+    "react": "16.3.0-alpha.1",
+    "react-apollo": "^2.1.2",
+    "react-native":
+      "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
+    "react-native-app-intro-slider": "^0.2.4",
+    "react-navigation": "^1.5.11",
+    "styled-components": "^3.2.5",
+    "subscriptions-transport-ws": "^0.9.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-jest": "22.4.3",
+    "babel-plugin-transform-remove-console": "^6.9.0",
+    "babel-preset-expo": "^4.0.0",
+    "babel-preset-react-native": "^4.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jest": "^21.15.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react-native": "^3.2.1",
+    "exp": "^51.4.0",
+    "husky": "^0.14.3",
+    "jest": "22.4.3",
+    "lint-staged": "^7.0.2",
+    "prettier": "^1.11.1",
+    "react-test-renderer": "^16.3.0-alpha.1"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleNameMapper": {
+      "styled-components":
+        "<rootDir>/node_modules/styled-components/dist/styled-components.native.cjs.js",
+      "^image![a-zA-Z0-9$_-]+$": "GlobalImageStub",
+      "^[@./a-zA-Z0-9$_-]+\\.(png|gif)$": "RelativeImageStub"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!(react-native|react-navigation)/)"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --config ./.prettierrc --write",
+      "git add"
+    ],
+    "package.json": ["prettier --config ./.prettierrc --write", "git add"]
+  }
+}
