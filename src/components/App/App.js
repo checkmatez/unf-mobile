@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import { StatusBar } from 'react-native'
 import { ApolloProvider } from 'react-apollo'
 import { ThemeProvider } from 'styled-components'
 import { AppLoading } from 'expo'
@@ -40,7 +41,15 @@ class App extends Component {
       <ApolloProvider client={client}>
         <ErrorBoundary>
           <ThemeProvider theme={main}>
-            <RootNavigator />
+            <Fragment>
+              <StatusBar
+                barStyle="dark-content"
+                animated
+                backgroundColor="blue"
+                networkActivityIndicatorVisible
+              />
+              <RootNavigator />
+            </Fragment>
           </ThemeProvider>
         </ErrorBoundary>
       </ApolloProvider>

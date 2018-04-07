@@ -4,6 +4,7 @@ import { SwitchNavigator } from 'react-navigation'
 import CheckIfIntroWatchedScreen from '../CheckIfIntroWatchedScreen'
 import IntroScreen from '../IntroScreen'
 import MainNavScreen from '../MainNavScreen'
+import MainTabNavigator from '../MainTabNavigator'
 
 const RootNavigator = SwitchNavigator(
   {
@@ -14,7 +15,7 @@ const RootNavigator = SwitchNavigator(
       screen: IntroScreen,
     },
     MainNav: {
-      screen: MainNavScreen,
+      screen: MainTabNavigator,
     },
   },
   {
