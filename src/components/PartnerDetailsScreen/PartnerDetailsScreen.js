@@ -13,6 +13,10 @@ const PARTNER_BY_ID_QUERY = gql`
       code
       description
       isFolder
+      contactDetails {
+        kind
+        value
+      }
     }
   }
 `
@@ -49,6 +53,13 @@ class PartnerDetailsScreen extends Component {
         <Text>{partner.code}</Text>
         <Text>{partner.createdAt}</Text>
         <Text>{partner.updatedAt}</Text>
+        {partner.contactDetails.map((CD, index) => (
+          <View key={index} style={{ flexDirection: 'row' }}>
+            <Text>{CD.kind}</Text>
+            <Text>: </Text>
+            <Text>{CD.value}</Text>
+          </View>
+        ))}
       </GestureHandler.ScrollView>
     )
   }
