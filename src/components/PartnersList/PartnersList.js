@@ -18,13 +18,23 @@ import { getEndReachedHandler, extractSectionsByLetter } from '../../utils'
 const PARTNERS_LIST_QUERY = gql`
   query partnersList($first: Int!, $skip: Int!, $isFolder: Boolean!) {
     partners(first: $first, skip: $skip, isFolder: $isFolder) {
-      id
-      createdAt
-      updatedAt
-      deletionMark
-      code
-      description
-      isFolder
+      aggregate {
+        count
+      }
+      pageInfo {
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          createdAt
+          updatedAt
+          deletionMark
+          code
+          description
+          isFolder
+        }
+      }
     }
   }
 `
@@ -51,13 +61,17 @@ const SectionTitleText = styled.Text`
 class PartnersList extends Component {
   keyExtractor = item => item.id
 
-  ListFooterComponent = networkStatus => {
-    if (networkStatus !== 3) {
-      return null
+  ListFooterComponent = ({ networkStatus, total }) => {
+    if (networkStatus === 3) {
+      return (
+        <FooterContainer>
+          <ActivityIndicator />
+        </FooterContainer>
+      )
     }
     return (
       <FooterContainer>
-        <ActivityIndicator />
+        <Text>{`Всего: ${total}`}</Text>
       </FooterContainer>
     )
   }
@@ -93,7 +107,10 @@ class PartnersList extends Component {
     const refreshControl = (
       <RefreshControl refreshing={networkStatus === 4} onRefresh={refetch} />
     )
-    const sections = extractSectionsByLetter(data.partners, 'description')
+    const sections = extractSectionsByLetter(
+      data.partners.edges.map(edge => edge.node),
+      'description'
+    )
 
     return (
       <GestureHandler.NativeViewGestureHandler
@@ -107,14 +124,20 @@ class PartnersList extends Component {
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
           ItemSeparatorComponent={Separator}
-          ListFooterComponent={() => this.ListFooterComponent(networkStatus)}
+          ListFooterComponent={() =>
+            this.ListFooterComponent({
+              networkStatus,
+              total: data.partners.aggregate.count,
+            })
+          }
           contentContainerStyle={{ backgroundColor: 'white' }}
           refreshControl={refreshControl}
           onEndReached={getEndReachedHandler({
             networkStatus,
             fetchMore,
-            data,
-            listKey: 'partners',
+            currentLength: data.partners.edges.length,
+            hasNextPage: data.partners.pageInfo.hasNextPage,
+            pathToList: 'partners.edges',
           })}
           onEndReachedThreshold={0.5}
           contentInset={{ bottom: 45 }}

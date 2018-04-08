@@ -1,6 +1,8 @@
 import { Image } from 'react-native'
 import { Asset, Font } from 'expo'
 import uniq from 'lodash/uniq'
+import get from 'lodash/get'
+import set from 'lodash/set'
 
 export const cacheImages = images =>
   images.map(
@@ -15,22 +17,28 @@ export const cacheFonts = fonts => fonts.map(font => Font.loadAsync(font))
 export const getEndReachedHandler = ({
   networkStatus,
   fetchMore,
-  data,
-  listKey,
+  currentLength,
+  hasNextPage,
+  pathToList,
 }) => () => {
+  if (!hasNextPage) {
+    return
+  }
   if (networkStatus < 7) {
     return
   }
   fetchMore({
-    variables: { skip: data[listKey].length + 1 },
+    variables: { skip: currentLength + 1 },
     updateQuery: (previousResult, { fetchMoreResult }) => {
       if (!fetchMoreResult) {
         return previousResult
       }
-      return {
-        ...previousResult,
-        [listKey]: [...previousResult[listKey], ...fetchMoreResult[listKey]],
-      }
+      const updatedResult = { ...fetchMoreResult }
+      set(updatedResult, pathToList, [
+        ...get(previousResult, pathToList),
+        ...get(fetchMoreResult, pathToList),
+      ])
+      return updatedResult
     },
   })
 }
