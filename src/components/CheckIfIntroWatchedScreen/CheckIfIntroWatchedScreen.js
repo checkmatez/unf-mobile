@@ -11,7 +11,7 @@ class CheckIfIntroWatchedScreen extends Component {
   async componentDidMount() {
     const done = await AsyncStorage.getItem('intro_done')
     if (done && done === 'true') {
-      this.props.navigation.navigate('MainNav')
+      this.props.navigation.navigate('Modal')
     } else {
       this.props.navigation.navigate('Intro')
     }

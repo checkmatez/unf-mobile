@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, Switch } from 'react-native'
+import { Entypo } from '@expo/vector-icons'
 
 import PartnersList from '../PartnersList'
+import HeaderIcon from '../HeaderIcon'
+import { HeaderButtonContainer } from '../styled'
 
 class PartnersScreen extends Component {
   static propTypes = {
@@ -10,9 +13,18 @@ class PartnersScreen extends Component {
       .isRequired,
   }
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: 'Партнеры',
-  }
+    headerRight: (
+      <HeaderButtonContainer>
+        <HeaderIcon
+          IconFont={Entypo}
+          name="plus"
+          onPress={() => navigation.navigate('PartnerCreation')}
+        />
+      </HeaderButtonContainer>
+    ),
+  })
 
   state = {
     showFolders: false,

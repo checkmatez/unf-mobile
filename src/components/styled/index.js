@@ -7,9 +7,8 @@ export const Separator = styled.View`
   margin-horizontal: 10;
 `
 
-export const Container = styled.View`
+export const HeaderButtonContainer = styled.View`
   margin-horizontal: 15;
   flex-direction: row;
   align-items: center;
-  min-height: 40;
 `

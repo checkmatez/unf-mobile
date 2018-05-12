@@ -1,10 +1,8 @@
-// @flow
 import { SwitchNavigator } from 'react-navigation'
 
 import CheckIfIntroWatchedScreen from '../CheckIfIntroWatchedScreen'
 import IntroScreen from '../IntroScreen'
-import MainNavScreen from '../MainNavScreen'
-import MainTabNavigator from '../MainTabNavigator'
+import ModalNavigator from '../ModalNavigator'
 
 const RootNavigator = SwitchNavigator(
   {
@@ -14,8 +12,8 @@ const RootNavigator = SwitchNavigator(
     Intro: {
       screen: IntroScreen,
     },
-    MainNav: {
-      screen: MainTabNavigator,
+    Modal: {
+      screen: ModalNavigator,
     },
   },
   {
