@@ -1,11 +1,11 @@
 import React from 'react'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { BlurView } from 'expo'
 
 import PartnersScreen from '../PartnersScreen'
 import PartnerDetailsScreen from '../PartnerDetailsScreen'
 
-const CatalogsStackNavigator = StackNavigator(
+const CatalogsStackNavigator = createStackNavigator(
   {
     Partners: { screen: PartnersScreen },
     PartnerDetails: { screen: PartnerDetailsScreen },

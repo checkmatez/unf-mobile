@@ -1,10 +1,10 @@
-import { SwitchNavigator } from 'react-navigation'
+import { createSwitchNavigator } from 'react-navigation'
 
 import CheckIfIntroWatchedScreen from '../CheckIfIntroWatchedScreen'
 import IntroScreen from '../IntroScreen'
 import ModalNavigator from '../ModalNavigator'
 
-const RootNavigator = SwitchNavigator(
+const RootNavigator = createSwitchNavigator(
   {
     CheckIfIntroWatched: {
       screen: CheckIfIntroWatchedScreen,

@@ -1,11 +1,11 @@
 import React from 'react'
-import { TabNavigator } from 'react-navigation'
+import { createBottomTabNavigator } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
 
 import CatalogsStackNavigator from '../CatalogsStackNavigator'
 import SettingsScreen from '../SettingsScreen'
 
-const MainTabNavigator = TabNavigator(
+const MainTabNavigator = createBottomTabNavigator(
   {
     Catalogs: {
       screen: CatalogsStackNavigator,

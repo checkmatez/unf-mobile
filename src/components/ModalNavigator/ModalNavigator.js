@@ -1,9 +1,9 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 
 import MainTabNavigator from '../MainTabNavigator'
 import PartnerCreationScreen from '../PartnerCreationScreen'
 
-const ModalNavigator = StackNavigator(
+const ModalNavigator = createStackNavigator(
   {
     MainTab: {
       screen: MainTabNavigator,
